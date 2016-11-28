@@ -9,6 +9,7 @@ class ElemRegulationCapteur extends ElemRegulation
 	ElemRegulationCapteur(Capteur c)
 	{
 		m_capt = c;
+		m_capteur.setElemRegulation(this);
 	}
 
 	/* \brief Permet de gérer les évènements*/
