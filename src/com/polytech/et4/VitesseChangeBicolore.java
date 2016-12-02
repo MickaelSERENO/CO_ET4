@@ -20,7 +20,7 @@ public class VitesseChangeBicolore extends ElemRegulationCapteur
 		cv.setElemRegulation(this);
 	}
 
-	public void etreNotifie()
+	public void notifie()
 	{
 		if(!m_estNotifie)
 		{

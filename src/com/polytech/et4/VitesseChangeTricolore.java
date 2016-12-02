@@ -21,7 +21,7 @@ public class VitesseChangeTricolore extends ElemRegulationCapteur
 		cv.setElemRegulation(this);
 	}
 
-	public void etreNotifie()
+	public void notifie()
 	{
 		if(!m_estNotifie)
 		{

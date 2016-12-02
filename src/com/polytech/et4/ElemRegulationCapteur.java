@@ -13,5 +13,5 @@ class ElemRegulationCapteur extends ElemRegulation
 	}
 
 	/* \brief Permet de gérer les évènements*/
-	public abstract void etreNotifie();
+	public abstract void notifie();
 }
