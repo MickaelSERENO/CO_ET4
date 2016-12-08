@@ -2,6 +2,7 @@ package com.polytech.et4;
 
 import com.polytech.et4.Updatable;
 import com.polytech.et4.SegmentRoute;
+import com.polytech.et4.SensDeplacement;
 
 public class Voiture implements Updatable
 {
@@ -30,15 +31,15 @@ public class Voiture implements Updatable
     public void prochaineEtape()
     {
         //On modifie la position sur la route ou la prochaine route que l'on souhaite
-        m_position = m_position + ((m_sens == ARRIERE) ? -1 : 1);
+        m_position = m_position + ((m_sens == SensDeplacement.ARRIERE) ? -1 : 1);
 
 		//On commit le déplacement
-        SegmentRoute prochaineRoute = m_segmentRoute.setPosition(this);
+        SegmentRoute prochaineRoute = m_segmentRoute.setPosition(this, m_position);
 
 		//Redefini la position de la voiture si changement de route.
 		if(prochaineRoute != m_segmentRoute)
 		{
-			m_position = (m_sens == ARRIERE) ? prochaineRoute.getPositionFin() : prochaineRoute.getPositionDebut();
+			m_position = (m_sens == SensDeplacement.ARRIERE) ? prochaineRoute.getPositionFin() : prochaineRoute.getPositionDebut();
 			m_segmentRoute = prochaineRoute
 		}
 
