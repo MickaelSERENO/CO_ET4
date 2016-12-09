@@ -13,10 +13,10 @@ public class Stop extends Semaphore {
 	@Override
 	public float vitesseApproche(Voiture v) 
 	{
-		if(v.getVitesseCourante() == 0)
+		if(v.getVitesseCourante() != 0)
 			return Math.min(Math.abs((v.getPosition() - this.getPosition())/v.getVitesseMax()), v.getVitesseMax());
 		else
-			return 0;
+			return 1;
 	}
 
 }
