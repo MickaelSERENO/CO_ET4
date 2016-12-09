@@ -2,9 +2,10 @@ package com.polytech.et4;
 
 import com.polytech.et4.Updatable;
 import com.polytech.et4.SegmentRoute;
+import com.polytech.et4.Element;
 import com.polytech.et4.SensDeplacement;
 
-public class Voiture implements Updatable
+public class Voiture extends Element implements Updatable
 {
 	static private int identifiantCourant = 0;
 	static private final int LONGUEUR = 1;
@@ -49,7 +50,7 @@ public class Voiture implements Updatable
 			Semaphore sema = prochaineRoute.getSemaphore(m_position + i*((m_sens == SensDeplacement.ARRIERRE) ? -1 : 1), m_sens);
 			if(sema)
 			{
-				m_vitesseCourante *= sema.getRatioVitesse(this);
+				m_vitesseCourante *= sema.getVitesse(this);
 				break;
 			}
 			
