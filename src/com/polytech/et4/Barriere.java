@@ -9,7 +9,7 @@ public class Barriere extends Jonction {
 	
 	public Route getNextRoute(Route origine) throws OrigineJonctionException{
 		if(origine.equals(this.route1))
-			return null;
+			return null; //Signifie qu'il n'y a pas d'autre Route après
 		else
 			throw new OrigineJonctionException();
 }

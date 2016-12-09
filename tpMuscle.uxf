@@ -27,9 +27,9 @@ fontsize=12
     <panel_attributes>SegmentRoute
 --
 --
-Voiture getVoiture(int position);
-Semaphore getSemaphore(int position);
-SegmentRoute setPosition(Voiture voiture, int position
+Voiture getVoiture(int position, int sens);
+Semaphore getSemaphore(int position, int sens);
+SegmentRoute setPosition(Voiture voiture, int position);
 fontsize=12</panel_attributes>
     <additional_attributes/>
   </element>

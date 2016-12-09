@@ -14,7 +14,7 @@ public class Voiture implements Updatable
 	private int          m_identifiant;
     private SegmentRoute m_segmentRoute = null;
     private int          m_position = 0;
-    private SensDeplacement m_sens;
+    private int          m_sens;
 
 	public Voiture(int vitesseMax, SegmentRoute route, int position, SensDeplacement sens)
 	{
@@ -31,7 +31,7 @@ public class Voiture implements Updatable
     public void prochaineEtape()
     {
         //On modifie la position sur la route ou la prochaine route que l'on souhaite
-        m_position = m_position + ((m_sens == SensDeplacement.ARRIERE) ? -1 : 1);
+        m_position = m_position + ((m_sens == SensDeplacement.ARRIERRE) ? -1 : 1)*m_vitesseCourante;
 
 		//On commit le déplacement
         SegmentRoute prochaineRoute = m_segmentRoute.setPosition(this, m_position);
@@ -39,12 +39,29 @@ public class Voiture implements Updatable
 		//Redefini la position de la voiture si changement de route.
 		if(prochaineRoute != m_segmentRoute)
 		{
-			m_position = (m_sens == SensDeplacement.ARRIERE) ? prochaineRoute.getPositionFin() : prochaineRoute.getPositionDebut();
+			m_position = (m_sens == SensDeplacement.ARRIERRE) ? prochaineRoute.getPositionFin() : prochaineRoute.getPositionDebut();
 			m_segmentRoute = prochaineRoute
 		}
 
-		Semaphore sema = prochaineRoute.getSemaphore(m_position);
-		if(sema)
-			m_vitesse *= sema.getRatioVitesse();
+		//Le premier prochain obstacle déterminera notre vitesse de déplacement.
+		for(int i=1; i <= m_vitesseCourante; i++)
+		{
+			Semaphore sema = prochaineRoute.getSemaphore(m_position + i*((m_sens == SensDeplacement.ARRIERRE) ? -1 : 1), m_sens);
+			if(sema)
+			{
+				m_vitesseCourante *= sema.getRatioVitesse(this);
+				break;
+			}
+			
+			//Si une voiture, on se met juste derrière elle.
+			Voiture prochaineVoiture = prochaineRoute.getVoiture(m_position + i*((m_sens == SensDeplacement.ARRIERRE) ? -1 : 1), m_sens);
+			if(prochaineVoiture)
+				m_vitesseCourante = i-1;
+		}
+    }
+    
+    public int getVitesseCourante()
+    {
+    	return m_vitesseCourante;
     }
 }
