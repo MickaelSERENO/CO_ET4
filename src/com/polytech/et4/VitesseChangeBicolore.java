@@ -13,7 +13,7 @@ public class VitesseChangeBicolore extends ElemRegulationCapteur
 
 	/* \brief Constructeur
 	 * \param cv Le capteur de vitesse lié à l'objet*/
-	public VitesseChangeTricolore(CapteurVitesse cv, FeuTricolore feu)
+	public VitesseChangeBicolore(CapteurVitesse cv, FeuTricolore feu)
 	{
 		super(cv);
 		m_feu = feu;
