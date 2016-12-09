@@ -14,11 +14,10 @@ public class Voiture extends Element implements Updatable
 	private int		     m_vitesseCourante;
 	private int          m_identifiant;
     private SegmentRoute m_segmentRoute = null;
-    private int          m_position = 0;
-    private int          m_sens;
 
-	public Voiture(int vitesseMax, SegmentRoute route, int position, SensDeplacement sens)
+	public Voiture(int vitesseMax, SegmentRoute route, int position, int sens)
 	{
+		super(position, sens);
 		m_vitesseMax      = vitesseMax;
 		m_vitesseCourante = vitesseMax;
 		m_identifiant     = identifiantCourant;
