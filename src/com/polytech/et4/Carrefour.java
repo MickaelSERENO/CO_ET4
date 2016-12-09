@@ -13,8 +13,8 @@ public class Carrefour extends Jonction {
 	public Route getNextRoute(Route origine)throws OrigineJonctionException{
 		if(this.listeRoute.contains(origine))
 		{
-			ArrayList<Route> listTemp = listeRoute.clone();
-			listTemp.remove(origine);
+			ArrayList<Route> listeTemp = listeRoute.clone();
+			listeTemp.remove(origine);
 			int size = listeRoute.size();
 			Random rand = new Random();
 			int indexNext = rand.nextInt(size);
