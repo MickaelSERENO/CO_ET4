@@ -2,8 +2,13 @@ package com.polytech.et4;
 
 import com.polytech.et4.ElemRegulationCapteur;
 
-public class Capteur {
+public class Capteur extends Element {
     ElemRegulationCapteur m_elem=null;
+    
+    public Capteur(int position, int sens)
+    {
+    	super(position, sens);
+    }
     
     public ElemRegulationCapteur getElemRegulation() 
     {
