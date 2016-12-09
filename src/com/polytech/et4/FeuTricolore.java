@@ -6,9 +6,14 @@ import com.polytech.et4.Bicolore;
 
 public class FeuTricolore extends Semaphore {
 	
-	Tricolore couleurFeu = Tricolore.ROUGE;
+	int couleurFeu = Tricolore.ROUGE;
 	
-	public void changerCouleur(Tricolore t) {
+	public FeuTricolore(int position, int sens)
+	{
+		super(position, sens);
+	}
+	
+	public void changerCouleur(int t) {
 		couleurFeu = t;
 	}
 
@@ -19,8 +24,13 @@ public class FeuTricolore extends Semaphore {
 		return v.getVitesseCourante();
 	}
 	
+	public int getCouleur()
+	{
+		return couleurFeu;
+	}
+	
 	@Override
-	public boolean peutPasser() {
+	public boolean peutPasser(Voiture v) {
 		return couleurFeu != Tricolore.ROUGE;
 	}
 }

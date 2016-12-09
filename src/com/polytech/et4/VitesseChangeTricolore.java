@@ -16,7 +16,7 @@ public class VitesseChangeTricolore extends ElemRegulationCapteur
 	 * \param cv Le capteur de vitesse lié à l'objet*/
 	public VitesseChangeTricolore(CapteurVitesse cv, FeuBicolore feu)
 	{
-		super();
+		super(cv);
 		m_feu = feu;
 		cv.setElemRegulation(this);
 	}
@@ -47,7 +47,7 @@ public class VitesseChangeTricolore extends ElemRegulationCapteur
 		}
 
 		//Gère si la prochaine étape pour le feu est de passer au vert.
-		else if(m_feu.getCouleur() == ROUGE)
+		else if(m_feu.getCouleur() == Tricolore.ROUGE)
 		{
 			if(m_timer >= MAX_TIMER_ROUGE)
 			{

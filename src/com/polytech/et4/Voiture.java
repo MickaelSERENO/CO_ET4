@@ -21,11 +21,10 @@ public class Voiture extends Element implements Updatable
 		m_vitesseMax      = vitesseMax;
 		m_vitesseCourante = vitesseMax;
 		m_identifiant     = identifiantCourant;
+
+        m_segmentRoute    = route;
 		identifiantCourant++;
 
-        m_segmentRoute = route;
-        m_position     = position;
-        m_sens         = sens;
 	}
 
     public void prochaineEtape()
@@ -33,29 +32,35 @@ public class Voiture extends Element implements Updatable
         //On modifie la position sur la route ou la prochaine route que l'on souhaite
         m_position = m_position + ((m_sens == SensDeplacement.ARRIERRE) ? -1 : 1)*m_vitesseCourante;
 
-		//On commit le déplacement
-        SegmentRoute prochaineRoute = m_segmentRoute.setPosition(this, m_position);
-
+		//On commit le déplacement. Normalement pas d'erreur
+        SegmentRoute prochaineRoute=null;
+        try
+        {
+        	prochaineRoute = m_segmentRoute.getNextSegmentRoute(this);
+        }
+        catch(PasBonneRoute e)
+        {}
+        
 		//Redefini la position de la voiture si changement de route.
 		if(prochaineRoute != m_segmentRoute)
 		{
 			m_position = (m_sens == SensDeplacement.ARRIERRE) ? prochaineRoute.getPositionFin() : prochaineRoute.getPositionDebut();
-			m_segmentRoute = prochaineRoute
+			m_segmentRoute = prochaineRoute;
 		}
 
 		//Le premier prochain obstacle déterminera notre vitesse de déplacement.
 		for(int i=1; i <= m_vitesseCourante; i++)
 		{
 			Semaphore sema = prochaineRoute.getSemaphore(m_position + i*((m_sens == SensDeplacement.ARRIERRE) ? -1 : 1), m_sens);
-			if(sema)
+			if(sema != null)
 			{
-				m_vitesseCourante *= sema.getVitesse(this);
+				m_vitesseCourante *= sema.vitesseApproche(this);
 				break;
 			}
 			
 			//Si une voiture, on se met juste derrière elle.
 			Voiture prochaineVoiture = prochaineRoute.getVoiture(m_position + i*((m_sens == SensDeplacement.ARRIERRE) ? -1 : 1), m_sens);
-			if(prochaineVoiture)
+			if(prochaineVoiture != null)
 				m_vitesseCourante = i-1;
 		}
     }
@@ -64,4 +69,8 @@ public class Voiture extends Element implements Updatable
     {
     	return m_vitesseCourante;
     }
+
+	public SegmentRoute getSegmentRoute() {
+		return m_segmentRoute;
+	}
 }

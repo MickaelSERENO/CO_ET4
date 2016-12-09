@@ -3,31 +3,31 @@ import com.polytech.et4.SensDeplacement;
 
 public class Element 
 {
-	private int m_position;
-	private int m_sens;
+	protected int m_position;
+	protected int m_sens;
 	
-	Element(int position, int sens)
+	public Element(int position, int sens)
 	{
 		m_position = position;
 		m_sens = sens;
 	}
 
-	void setPosition(int position)
+	public void setPosition(int position)
 	{
 		m_position = position;
 	}
 	
-	int getPosition()
+	public int getPosition()
 	{
 		return m_position;
 	}
 	
-	void setSens(int sens)
+	public void setSens(int sens)
 	{
 		m_sens = sens;
 	}
 	
-	int getSens()
+	public int getSens()
 	{
 		return m_sens;
 	}

@@ -1,5 +1,7 @@
 package com.polytech.et4;
 
+import java.util.ArrayList;
+
 import com.polytech.et4.ElemRegulation;
 import com.polytech.et4.FeuTricolore;
 
@@ -13,10 +15,10 @@ public class CarrefourTricoloreSimple extends ElemRegulation
 		VERS_VERT   //Pour faire passer un feu au vert
 	}
 
-	//On pourrait imaginer que la classe prenne des attributs pour définir les butées des timers.
-	private int final MAX_ORANGE = 10;
-	private int final MAX_ROUGE  = 10;
-	private int final MAX_VERT   = 2;
+	//On pourrait imaginer que la classe prenne des attributs pour définir les butées des timers, d'où pourquoi pas de static
+	private final int MAX_ORANGE = 10;
+	private final int MAX_ROUGE  = 10;
+	private final int MAX_VERT   = 2;
 
 	//Nos feux
 	private ArrayList<? extends FeuTricolore> m_feux;
@@ -24,20 +26,23 @@ public class CarrefourTricoloreSimple extends ElemRegulation
 	//Le feu qui doit être modifié
 	private int m_idCourant=0;
 	//Qu'est-ce qu'on fait quand le timer a atteint sa valeur.
-	private EtatFeuxTricolore m_etat=VERS_ORANGE;
+	private EtatFeuxTricolore m_etat=EtatFeuxTricolore.VERS_ORANGE;
 
-	//Ce constructeur ne sera appeler que par une fonction static
+	//Ce constructeur ne sera appeler que par une fonction static, à cause des problèmes liés aux exceptions
 	private CarrefourTricoloreSimple(ArrayList<? extends FeuTricolore> feux)
 	{
 		m_feux = feux;
-		for(Feu feu : m_feux)
-			feu.changerCouleur(ROUGE);
-		feux.get(0).changerCouleur(VERT);
+		for(FeuTricolore feu : m_feux)
+			feu.changerCouleur(Tricolore.ROUGE);
+		feux.get(0).changerCouleur(Tricolore.VERT);
 	}
 
-	public CarrefourTricoloreSimple(ArrayList<? extends FeuTricolore> feux) throws TableauVideException
+	static public CarrefourTricoloreSimple makeCarrefourTricoloreSimple(ArrayList<? extends FeuTricolore> feux) throws TableauVideException
 	{
-		return (feux.empty()) ? new	TableauVideException() : new CarrefourTricoloreSimple(feux);
+		if(feux.isEmpty())
+			throw new TableauVideException();
+		else 
+			return new CarrefourTricoloreSimple(feux);
 	}
 
 	public void prochaineEtape()
@@ -50,7 +55,7 @@ public class CarrefourTricoloreSimple extends ElemRegulation
 				if(m_timer == MAX_ORANGE)
 				{
 					m_feux.get(m_idCourant).changerCouleur(Tricolore.ORANGE);
-					m_etat = VERS_ROUGE;
+					m_etat = EtatFeuxTricolore.VERS_ROUGE;
 					m_timer=0;
 				}
 				break;
@@ -59,7 +64,7 @@ public class CarrefourTricoloreSimple extends ElemRegulation
 				if(m_timer == MAX_ROUGE)
 				{
 					m_feux.get(m_idCourant).changerCouleur(Tricolore.ROUGE);
-					m_etat = VERS_VERT;
+					m_etat = EtatFeuxTricolore.VERS_VERT;
 					m_idCourant = (m_idCourant+1)%m_feux.size();
 					m_timer=0;
 				}
@@ -68,7 +73,7 @@ public class CarrefourTricoloreSimple extends ElemRegulation
 			case VERS_VERT:
 				if(m_timer == MAX_VERT)
 				{
-					m_etat = VERS_ORANGE;
+					m_etat = EtatFeuxTricolore.VERS_ORANGE;
 					m_feux.get(m_idCourant).changerCouleur(Tricolore.VERT);
 					m_timer=0;
 				}

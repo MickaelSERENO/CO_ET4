@@ -1,10 +1,18 @@
-package semaphores;
+package com.polytech.et4;
+import com.polytech.et4.Semaphore;
+import com.polytech.et4.Voiture;
+import com.polytech.et4.Bicolore;
 
 public class FeuBicolore extends Semaphore {
 	
-	Bicolore couleurFeu = Bicolore.ROUGE;
+	int couleurFeu = Bicolore.ROUGE;
 	
-	public void changerCouleur(Bicolore b) {
+	FeuBicolore(int position, int sens)
+	{
+		super(position, sens);
+	}
+	
+	public void changerCouleur(int b) {
 		couleurFeu = b;
 	}
 
@@ -14,8 +22,13 @@ public class FeuBicolore extends Semaphore {
 		return 1;
 	}
 	
+	public int getCouleur()
+	{
+		return couleurFeu;
+	}
+	
 	@Override
-	public boolean peutPasser() {
+	public boolean peutPasser(Voiture v) {
 		return couleurFeu != Bicolore.ROUGE;
 	}
 	

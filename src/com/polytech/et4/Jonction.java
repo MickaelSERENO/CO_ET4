@@ -1,7 +1,9 @@
 package com.polytech.et4;
 
-public abstract class Jonction {
+public abstract class Jonction implements Obstacle{
 
-	//donne aléatoirement la route suivante
-	abstract public Route getNextRoute(Route origine);
+	//donne aleatoirement la SegmentRoute suivante
+	abstract public SegmentRoute getNextSegmentRoute(SegmentRoute origine)throws OrigineJonctionException;
+	
+	abstract public boolean peutPasser(Voiture v);
 }
