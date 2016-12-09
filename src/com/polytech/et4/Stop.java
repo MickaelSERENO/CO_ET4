@@ -18,5 +18,4 @@ public class Stop extends Semaphore {
 		else
 			return 1;
 	}
-
 }

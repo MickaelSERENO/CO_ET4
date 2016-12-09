@@ -65,8 +65,10 @@ public class Voiture extends Element implements Updatable
 				//Redefini la position de la voiture si changement de route.
 				if(prochaineRoute != m_segmentRoute)
 				{
+					m_segmentRoute.supprimerVoiture(this);
 					m_position = (m_sens == SensDeplacement.ARRIERRE) ? prochaineRoute.getPositionFin() : prochaineRoute.getPositionDebut();
 					m_segmentRoute = prochaineRoute;
+					m_segmentRoute.ajouterVoiture(this);
 				}
 			}
 
@@ -104,5 +106,10 @@ public class Voiture extends Element implements Updatable
     
 	public SegmentRoute getSegmentRoute() {
 		return m_segmentRoute;
+	}
+	
+	public void setSegmentRoute(SegmentRoute s)
+	{
+		m_segmentRoute = s;
 	}
 }

@@ -10,6 +10,10 @@ public class CapteurVitesse extends Capteur {
 		super(position, sens);
 	}
 	
+	//TODO
+	public void prochaineEtape()
+	{}
+	
 	//Recupere la vitesse courante de la voiture
 	public int  getVitesse(){	
 		return v_vitesse.getVitesseCourante();

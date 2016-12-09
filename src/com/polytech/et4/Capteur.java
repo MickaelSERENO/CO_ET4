@@ -2,7 +2,7 @@ package com.polytech.et4;
 
 import com.polytech.et4.ElemRegulationCapteur;
 
-public class Capteur extends Element {
+public abstract class Capteur extends Element implements Updatable {
     ElemRegulationCapteur m_elem=null;
     
     public Capteur(int position, int sens)

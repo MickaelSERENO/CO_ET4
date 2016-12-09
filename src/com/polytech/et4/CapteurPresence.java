@@ -5,11 +5,15 @@ import com.polytech.et4.ElemRegulation;
 public class CapteurPresence extends Capteur {
 
 	private boolean m_est_present = false;
-	
+
 	public CapteurPresence(int position, int sens)
 	{
 		super(position, sens);
 	}
+	
+	//TODO
+	public void prochaineEtape()
+	{}
 	
 	public boolean  getPresence()
 	{

@@ -2,7 +2,8 @@ package com.polytech.et4;
 
 import java.util.ArrayList;
 
-public class SegmentRoute {
+public class SegmentRoute implements Updatable 
+{
 	private Jonction jonction1; //avant
 	private Jonction jonction2; //arrière
 	private ArrayList<Voiture> listeVoiture;
@@ -81,9 +82,19 @@ public class SegmentRoute {
 				}
 			}
 		}
+		
 		return null;
+	}
+	
+	public void prochaineEtape()
+	{
+		//On met à jours les voitures
+		for(Voiture v : listeVoiture)
+			v.prochaineEtape();
 		
-		
+		//On met à jours les capteurs
+		for(Capteur c : listeCapteur)
+			c.prochaineEtape();
 	}
 	
 	public int getPositionFin()
@@ -94,5 +105,15 @@ public class SegmentRoute {
 	public int getPositionDebut()
 	{
 		return 0;
+	}
+	
+	public void supprimerVoiture(Voiture v)
+	{
+		listeVoiture.remove(v);
+	}
+	
+	public void ajouterVoiture(Voiture v)
+	{
+		listeVoiture.add(v);
 	}
 }
