@@ -59,7 +59,7 @@ public class SegmentRoute {
 	
 	public SegmentRoute getNextSegmentRoute(Voiture v) throws PasBonneRoute
 	{
-		if(v.getPosition()==0) //voiture en adébut de route = avant
+		if(v.getPosition()==-1) //voiture en adébut de route = avant
 		{
 			if(v.getSens()==SensDeplacement.AVANT)
 			{
@@ -70,7 +70,7 @@ public class SegmentRoute {
 				}
 			}
 		}
-		if(v.getPosition()==taille) //voiture en fin de route = arriere
+		if(v.getPosition()==taille+1) //voiture en fin de route = arriere
 		{
 			if(v.getSens()==SensDeplacement.ARRIERRE)
 			{

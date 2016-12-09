@@ -18,7 +18,8 @@ public class FeuBicolore extends Semaphore {
 
 	@Override
 	public float vitesseApproche(Voiture v) {
-		if(couleurFeu == Bicolore.ROUGE) return 0;
+		if(couleurFeu == Bicolore.ROUGE) 
+			return Math.min(Math.abs((v.getPosition() - this.getPosition())/v.getVitesseMax()), v.getVitesseMax());
 		return 1;
 	}
 	

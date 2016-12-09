@@ -70,6 +70,11 @@ public class Voiture extends Element implements Updatable
     	return m_vitesseCourante;
     }
 
+    public int getVitesseMax()
+    {
+    	return m_vitesseMax;
+    }
+    
 	public SegmentRoute getSegmentRoute() {
 		return m_segmentRoute;
 	}
