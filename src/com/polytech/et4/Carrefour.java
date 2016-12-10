@@ -4,22 +4,33 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Carrefour extends Jonction {
-	private ArrayList<Route> listeRoute;
+	private ArrayList<SegmentRoute> listeSegmentRoute;
 	
-	public Carrefour(ArrayList<Route> lRoute){
-		listeRoute = lRoute;
+	public Carrefour(ArrayList<SegmentRoute> lSegmentRoute){
+		listeSegmentRoute = lSegmentRoute;
 	}
 
-	public Route getNextRoute(Route origine)throws OrigineJonctionException{
-		if(this.listeRoute.contains(origine))
+	public SegmentRoute getNextSegmentRoute(SegmentRoute origine)throws OrigineJonctionException{
+		if(this.listeSegmentRoute.contains(origine))
 		{
-			ArrayList<Route> listeTemp = listeRoute.clone();
+			ArrayList<SegmentRoute> listeTemp = (ArrayList<SegmentRoute>) listeSegmentRoute.clone();
 			listeTemp.remove(origine);
-			int size = listeRoute.size();
+			int size = listeSegmentRoute.size();
 			Random rand = new Random();
 			int indexNext = rand.nextInt(size);
-			return listTemp.get(indexNext);
+			return listeTemp.get(indexNext);
 		}
 		else
 			throw new OrigineJonctionException();
+	}
+	
+	public boolean peutPasser(Voiture v){
+		try{
+			if(this.getNextSegmentRoute(v.getSegmentRoute())!=null)
+				return true;
+		} catch(OrigineJonctionException e) {
+			return false;
+		}
+		return false;
+	}
 }

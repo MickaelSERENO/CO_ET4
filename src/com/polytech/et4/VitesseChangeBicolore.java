@@ -6,14 +6,14 @@ import com.polytech.et4.ElemRegulationCapteur;
  * \brief Permet de gérer la couleur d'un seul feu en fonction d'un capteur de vitesse. Si le capteur de vitesse notifie l'objet, le feu passera à l'orange puis au rouge.*/
 public class VitesseChangeBicolore extends ElemRegulationCapteur
 {
-	private int final MAX_TIMER_ROUGE  = 10;
+	private final int MAX_TIMER_ROUGE  = 10;
 	private boolean m_estNotifie       = false;
 	private int     m_timer            = 0;
 	private FeuTricolore m_feu;
 
 	/* \brief Constructeur
 	 * \param cv Le capteur de vitesse lié à l'objet*/
-	public VitesseChangeTricolore(CapteurVitesse cv, FeuTricolore feu)
+	public VitesseChangeBicolore(CapteurVitesse cv, FeuTricolore feu)
 	{
 		super(cv);
 		m_feu = feu;
