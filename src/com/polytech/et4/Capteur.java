@@ -1,5 +1,5 @@
-package tp_Muscle;
-import tp_Muscle.ElemRegulationCapteur;
+package com.polytech.et4;
+import com.polytech.et4.ElemRegulationCapteur;
 
 public class Capteur extends Element implements Updatable {
     ElemRegulationCapteur m_elem=null;
