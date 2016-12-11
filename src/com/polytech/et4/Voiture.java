@@ -126,7 +126,7 @@ public class Voiture extends Element implements Updatable, Obstacle
 				Semaphore sema = m_segmentRoute.getSemaphore(m_position + i*((m_sens == SensDeplacement.ARRIERRE) ? -1 : 1), m_sens);
 				if(sema != null)
 				{
-					m_vitesseCourante = m_vitesseMax * sema.vitesseApproche(this);
+					m_vitesseCourante = (int)(m_vitesseMax * sema.vitesseApproche(this));
 					v = m_vitesseCourante;
 					System.out.println(""+sema.vitesseApproche(this));
 					i++;
@@ -146,7 +146,7 @@ public class Voiture extends Element implements Updatable, Obstacle
 
 	public boolean peutPasser(Voiture v)
 	{
-		if(v.m_sens == m_sens && v.position + (m_sens == SensDeplacement.ARRIERRE ? 1 : -1) == m_position)
+		if(v.m_sens == m_sens && v.m_position + (m_sens == SensDeplacement.ARRIERRE ? 1 : -1) == m_position)
 			return false;
 		return true;
 	}
