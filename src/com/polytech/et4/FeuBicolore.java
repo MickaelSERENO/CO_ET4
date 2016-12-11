@@ -7,9 +7,9 @@ public class FeuBicolore extends Semaphore {
 	
 	int couleurFeu = Bicolore.ROUGE;
 	
-	FeuBicolore(int position, int sens)
+	FeuBicolore(int sens, SegmentRoute r)
 	{
-		super(position, sens);
+		super(sens, r);
 	}
 	
 	public void changerCouleur(int b) {
@@ -19,7 +19,7 @@ public class FeuBicolore extends Semaphore {
 	@Override
 	public float vitesseApproche(Voiture v) {
 		if(couleurFeu == Bicolore.ROUGE) 
-			return Math.min(Math.abs((v.getPosition() - this.getPosition())/v.getVitesseMax()), v.getVitesseMax());
+			return Math.min(Math.abs((v.getPosition() - this.getPosition()+ (m_sens == SensDeplacement.ARRIERRE ? 1 : -1))/v.getVitesseMax()), 1);
 		return 1;
 	}
 	
@@ -30,8 +30,8 @@ public class FeuBicolore extends Semaphore {
 	
 	@Override
 	public boolean peutPasser(Voiture v) {
-		return couleurFeu != Bicolore.ROUGE;
+		if(v.getPosition() == m_position && v.getSens() == m_sens)
+			return couleurFeu != Bicolore.ROUGE;
+		return true;
 	}
-	
-
 }

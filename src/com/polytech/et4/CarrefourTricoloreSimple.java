@@ -21,7 +21,7 @@ public class CarrefourTricoloreSimple extends ElemRegulation
 	private final int MAX_VERT   = 2;
 
 	//Nos feux
-	private ArrayList<? extends FeuTricolore> m_feux;
+	private ArrayList<FeuTricolore> m_feux;
 	private int m_timer=0;
 	//Le feu qui doit être modifié
 	private int m_idCourant=0;
@@ -29,7 +29,7 @@ public class CarrefourTricoloreSimple extends ElemRegulation
 	private EtatFeuxTricolore m_etat=EtatFeuxTricolore.VERS_ORANGE;
 
 	//Ce constructeur ne sera appeler que par une fonction static, à cause des problèmes liés aux exceptions
-	private CarrefourTricoloreSimple(ArrayList<? extends FeuTricolore> feux)
+	private CarrefourTricoloreSimple(ArrayList<FeuTricolore> feux)
 	{
 		m_feux = feux;
 		for(FeuTricolore feu : m_feux)
@@ -37,7 +37,7 @@ public class CarrefourTricoloreSimple extends ElemRegulation
 		feux.get(0).changerCouleur(Tricolore.VERT);
 	}
 
-	static public CarrefourTricoloreSimple makeCarrefourTricoloreSimple(ArrayList<? extends FeuTricolore> feux) throws TableauVideException
+	static public CarrefourTricoloreSimple makeCarrefourTricoloreSimple(ArrayList<FeuTricolore> feux) throws TableauVideException
 	{
 		if(feux.isEmpty())
 			throw new TableauVideException();

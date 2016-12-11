@@ -2,20 +2,15 @@ package com.polytech.et4;
 
 
 public class CapteurVitesse extends Capteur {
-
-	private Voiture v_vitesse;
-	
-	public CapteurVitesse(int position, int sens)
+	public CapteurVitesse(int position, int sens, SegmentRoute r)
 	{
-		super(position, sens);
+		super(position, sens, r);
 	}
 	
-	//TODO
-	public void prochaineEtape()
-	{}
-	
 	//Recupere la vitesse courante de la voiture
-	public int  getVitesse(){	
-		return v_vitesse.getVitesseCourante();
+	public int  getVitesse(){
+		if(m_voitureCourante != null)
+			return m_voitureCourante.getVitesseCourante();
+		return 0;
 	}
 }

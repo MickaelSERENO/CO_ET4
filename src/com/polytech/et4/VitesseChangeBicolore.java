@@ -9,20 +9,23 @@ public class VitesseChangeBicolore extends ElemRegulationCapteur
 	private final int MAX_TIMER_ROUGE  = 10;
 	private boolean m_estNotifie       = false;
 	private int     m_timer            = 0;
+	private int     m_vitesseMax       = 0;
 	private FeuTricolore m_feu;
 
 	/* \brief Constructeur
 	 * \param cv Le capteur de vitesse lié à l'objet*/
-	public VitesseChangeBicolore(CapteurVitesse cv, FeuTricolore feu)
+	public VitesseChangeBicolore(CapteurVitesse cv, FeuTricolore feu, int vitesseMax)
 	{
 		super(cv);
 		m_feu = feu;
 		cv.setElemRegulation(this);
+		m_vitesseMax = vitesseMax;
 	}
 
 	public void notifie()
 	{
-		if(!m_estNotifie)
+		//On sait qu'on travaille sur un capteur de vitesse.
+		if(!m_estNotifie && ((CapteurVitesse)m_capt).getVitesse() > m_vitesseMax)
 		{
 			m_feu.changerCouleur(Bicolore.ROUGE);
 			m_estNotifie = true;

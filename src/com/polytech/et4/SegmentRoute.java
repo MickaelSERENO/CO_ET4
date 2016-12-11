@@ -2,7 +2,7 @@ package com.polytech.et4;
 
 import java.util.ArrayList;
 
-public class SegmentRoute implements Updatable 
+public class SegmentRoute 
 {
 	private Jonction jonction1; //avant
 	private Jonction jonction2; //arrière
@@ -11,24 +11,31 @@ public class SegmentRoute implements Updatable
 	private Semaphore semaphore1; //avant
 	private Semaphore semaphore2; //arrière
 	private int taille;
+
+	private int identifiant;
+	private static int identCourant=0;
 	
-	
-	public SegmentRoute(Jonction j1, Jonction j2, Semaphore s1, Semaphore s2, ArrayList<Voiture> lVoiture, ArrayList<Capteur> lCapteur, int t)
+	//On ne prends pas de paramêtre car étape de construction oblige à créer des Segments de route avant les Jonctions et les Semaphores.
+	public SegmentRoute(int t)
 	{
-		jonction1 = j1;
-		jonction2 = j2;
-		semaphore1 = s1;
-		semaphore2 = s2;
-		listeVoiture = lVoiture;
-		listeCapteur = lCapteur;
+		jonction1 = null;
+		jonction2 = null;
+		semaphore1 = null;
+		semaphore2 = null;	
+		
+		listeVoiture = new ArrayList<Voiture>();
+		listeCapteur = new ArrayList<Capteur>();
+		
 		taille = t;
+		identifiant = identCourant+1;
+		identCourant++;
 	}
 	
 	public Voiture getVoiture(int position, int sens)
 	{
 		for(Voiture v : listeVoiture)
 		{
-			if(v.getPosition()==position)
+			if(v != null && v.getPosition()==position)
 			{
 				if(v.getSens()==sens)
 				{
@@ -41,14 +48,14 @@ public class SegmentRoute implements Updatable
 	
 	public Semaphore getSemaphore(int position, int sens)
 	{
-		if(semaphore1.getPosition()==position)
+		if(semaphore1 != null && semaphore1.getPosition()==position)
 		{
 			if(semaphore1.getSens()==sens)
 			{
 				return semaphore1;
 			}
 		}
-		if(semaphore2.getPosition()==position)
+		if(semaphore2 != null && semaphore2.getPosition()==position)
 		{
 			if(semaphore2.getSens()==sens)
 			{
@@ -60,24 +67,28 @@ public class SegmentRoute implements Updatable
 	
 	public SegmentRoute getNextSegmentRoute(Voiture v) throws PasBonneRoute
 	{
-		if(v.getPosition()==0) //voiture en adébut de route = avant
+		if(v.getPosition() < getPositionDebut()) //voiture en adébut de route = avant
 		{
-			if(v.getSens()==SensDeplacement.AVANT)
+			if(v.getSens()==SensDeplacement.ARRIERRE)
 			{
 				try {
-					return jonction1.getNextSegmentRoute(this);
+					if(jonction1 != null)
+						return jonction1.getNextSegmentRoute(this);
 				} catch (OrigineJonctionException e) {
 					return null;
 				}
 			}
 		}
-		if(v.getPosition()==taille) //voiture en fin de route = arriere
+		
+		if(v.getPosition() > getPositionFin()) //voiture en fin de route = arriere
 		{
-			if(v.getSens()==SensDeplacement.ARRIERRE)
+			if(v.getSens()==SensDeplacement.AVANT)
 			{
 				try {
-					return jonction2.getNextSegmentRoute(this);
+					if(jonction2 != null)
+						return jonction2.getNextSegmentRoute(this);
 				} catch (OrigineJonctionException e) {
+					System.out.println("erreur !!!");
 					return null;
 				}
 			}
@@ -86,20 +97,9 @@ public class SegmentRoute implements Updatable
 		return null;
 	}
 	
-	public void prochaineEtape()
-	{
-		//On met à jours les voitures
-		for(Voiture v : listeVoiture)
-			v.prochaineEtape();
-		
-		//On met à jours les capteurs
-		for(Capteur c : listeCapteur)
-			c.prochaineEtape();
-	}
-	
 	public int getPositionFin()
 	{
-		return taille;
+		return taille-1;
 	}
 	
 	public int getPositionDebut()
@@ -114,6 +114,73 @@ public class SegmentRoute implements Updatable
 	
 	public void ajouterVoiture(Voiture v)
 	{
+		if(listeVoiture.contains(v))
+			return;
 		listeVoiture.add(v);
+	}
+
+	public void ajouterCapteur(Capteur c)
+	{
+		if(listeCapteur.contains(c))
+			return;
+		listeCapteur.add(c);
+		c.setSegmentRoute(this);
+	}
+
+	public String toString()
+	{
+		return "Segment de route numéro " + identifiant;
+	}
+
+	public void commitDeplacement(Voiture v)
+	{
+		for(Capteur c : listeCapteur)
+		{
+			if(c.getPosition() == v.getPosition() && c.getSens() == v.getSens())
+				c.notifie(v);
+		}
+
+		
+		ArrayList<Obstacle> listeObstacle = new ArrayList<Obstacle>();
+		//On ajoute les jonctions que si nécessaire
+		if(v.getPosition() == getPositionDebut()-1)
+			listeObstacle.add(jonction1);
+		else if(v.getPosition() == getPositionFin()+1)
+			listeObstacle.add(jonction2);
+		listeObstacle.add(semaphore1);
+		listeObstacle.add(semaphore2);
+	
+		for(Obstacle o : listeObstacle)
+			if(o != null && !o.peutPasser(v))
+			{
+				System.out.println(o);
+				notifieVoitureDangereuse(v);	
+			}
+	}
+
+	public void notifieVoitureDangereuse(Voiture v)
+	{
+		//On peut supposer un autre comportement
+		System.out.println("La voiture " + v + " n'avait pas le droit de passer. Danger ! ");
+	}
+	
+	public void setSemaphore(Semaphore sema, int sens)
+	{
+		if(sens == SensDeplacement.ARRIERRE)
+			semaphore1=sema;
+		else
+			semaphore2 = sema;
+	}
+	
+	public void setJonctionDebut(Jonction j)
+	{
+		System.out.println("Debut " + j + " " + identifiant);
+		jonction1 = j;
+	}
+	
+	public void setJonctionFin(Jonction j)
+	{
+		System.out.println("Fin " + j + " " + identifiant);
+		jonction2 = j;
 	}
 }

@@ -4,11 +4,10 @@ import com.polytech.et4.Element;
 
 public abstract class Semaphore extends Element implements Obstacle {
 	
-	private ElemRegulation er;
-	
-	public Semaphore(int position, int sens)
+	public Semaphore(int sens, SegmentRoute r)
 	{
-		super(position, sens);
+		super((sens == SensDeplacement.ARRIERRE ? r.getPositionDebut() : r.getPositionFin()), sens, r);
+		r.setSemaphore(this, sens);
 	}
 	
 

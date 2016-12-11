@@ -5,11 +5,13 @@ public class Element
 {
 	protected int m_position;
 	protected int m_sens;
+	protected SegmentRoute m_segmentRoute;
 	
-	public Element(int position, int sens)
+	public Element(int position, int sens, SegmentRoute r)
 	{
 		m_position = position;
 		m_sens = sens;
+		m_segmentRoute = r;
 	}
 
 	public void setPosition(int position)
