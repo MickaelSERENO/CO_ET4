@@ -14,7 +14,7 @@ public class Voiture extends Element implements Updatable, Obstacle
 	private int	       m_vitesseCourante;
 	private int        m_identifiant;
 
-	public Voiture(int vitesseMax, SegmentRoute route, int position, int sens)
+	private Voiture(int vitesseMax, SegmentRoute route, int position, int sens)
 	{
 		super(position, sens, route);
 		m_vitesseMax      = (int)vitesseMax;
