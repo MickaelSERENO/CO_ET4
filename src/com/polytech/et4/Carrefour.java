@@ -6,8 +6,28 @@ import java.util.Random;
 public class Carrefour extends Jonction {
 	private ArrayList<SegmentRoute> listeSegmentRoute;
 	
-	public Carrefour(ArrayList<SegmentRoute> lSegmentRoute){
+	private Carrefour(ArrayList<SegmentRoute> lSegmentRoute, ArrayList<Integer> lsens)
+	{
 		listeSegmentRoute = lSegmentRoute;
+		for(int i=0; i < lsens.size(); i++)
+		{
+			if(lsens.get(i).intValue()  != SensDeplacement.ARRIERRE)
+				lSegmentRoute.get(i).setJonctionDebut(this);
+			else if(lsens.get(i).intValue() != SensDeplacement.AVANT)
+				lSegmentRoute.get(i).setJonctionFin(this);
+		}
+	}
+	
+	public Carrefour makeCarrefour(ArrayList<SegmentRoute> lSegmentRoute, ArrayList<Integer> lsens) throws TableauNonCompatible
+	{
+		if(lsens.size() != lSegmentRoute.size())
+			throw new TableauNonCompatible();
+		
+		for(Integer i : lsens)
+			if(i.intValue() != SensDeplacement.ARRIERRE || i.intValue() != SensDeplacement.AVANT)
+				throw new TableauNonCompatible();
+		
+		return new Carrefour(lSegmentRoute, lsens);
 	}
 
 	public SegmentRoute getNextSegmentRoute(SegmentRoute origine)throws OrigineJonctionException{
