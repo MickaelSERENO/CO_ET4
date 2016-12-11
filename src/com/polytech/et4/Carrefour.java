@@ -30,7 +30,7 @@ public class Carrefour extends Jonction {
 		if(lSegmentRoute.size() < 2)
 			throw new TableauNonCompatible();
 		
-		if(sens.intValue() != SensDeplacement.ARRIERRE || sens.intValue() != SensDeplacement.AVANT)
+		if(sens != SensDeplacement.ARRIERRE || sens != SensDeplacement.AVANT)
 			throw new TableauNonCompatible();
 		
 		return new Carrefour(lSegmentRoute, sens);
