@@ -1,5 +1,4 @@
 package com.polytech.et4;
-
 import com.polytech.et4.ElemRegulationCapteur;
 
 public abstract class Capteur extends Element implements Updatable
