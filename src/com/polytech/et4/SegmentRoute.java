@@ -88,7 +88,7 @@ public class SegmentRoute
 					if(jonction2 != null)
 						return jonction2.getNextSegmentRoute(this);
 				} catch (OrigineJonctionException e) {
-					System.out.println("erreur !!!");
+					System.out.println("erreur !!!, la jonction ne m'appartient pas (devrait jamais arriver)");
 					return null;
 				}
 			}
@@ -134,19 +134,25 @@ public class SegmentRoute
 
 	public void commitDeplacement(Voiture v)
 	{
+		//On trouve le capteur dans notre position et on lui prévient qu'une voiture vient d'arriver
 		for(Capteur c : listeCapteur)
 		{
 			if(c.getPosition() == v.getPosition() && c.getSens() == v.getSens())
+			{
 				c.notifie(v);
+				break;
+			}
 		}
-
 		
 		ArrayList<Obstacle> listeObstacle = new ArrayList<Obstacle>();
-		//On ajoute les jonctions que si nécessaire
+
+		//On ajoute les jonctions au test que si nécessaire
 		if(v.getPosition() == getPositionDebut()-1)
 			listeObstacle.add(jonction1);
 		else if(v.getPosition() == getPositionFin()+1)
 			listeObstacle.add(jonction2);
+
+		//Les semaphores ayant des calculs plus complexes, nous les ajoutons tous le temps
 		listeObstacle.add(semaphore1);
 		listeObstacle.add(semaphore2);
 	
@@ -156,11 +162,19 @@ public class SegmentRoute
 				System.out.println(o);
 				notifieVoitureDangereuse(v);	
 			}
+
+		for(Voiture v2 : listeVoiture)
+		{
+			if(v2.getPosition() == v1.getPosition() && v1.getSens() == v2.getSens() && v1 != v2) //Le différent est justifié car les voitures sont toutes différentes de part leur identifiants uniques
+			{
+				notifieVoitureDangereuse(v);
+			}
+		}
 	}
 
 	public void notifieVoitureDangereuse(Voiture v)
 	{
-		//On peut supposer un autre comportement
+		//On peut supposer un autre comportement, ici un print fera l'affaire pour la démonstration
 		System.out.println("La voiture " + v + " n'avait pas le droit de passer. Danger ! ");
 	}
 	
