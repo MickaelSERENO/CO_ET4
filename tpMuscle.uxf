@@ -20,9 +20,9 @@ fontsize=12
     <id>UMLClass</id>
     <coordinates>
       <x>854</x>
-      <y>259</y>
-      <w>231</w>
-      <h>56</h>
+      <y>231</y>
+      <w>245</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>SegmentRoute
 --
@@ -30,6 +30,12 @@ fontsize=12
 Voiture getVoiture(int position, int sens);
 Semaphore getSemaphore(int position, int sens);
 SegmentRoute setPosition(Voiture voiture, int position);
+void commitDeplacement(Voiture v);
+void notifieVoitureDangereuse(Voiture v);
+void ajouterVoiture(Voiture v);
+void supprimerVoiture(Voiture v);
+void ajouterJonctions(Jonction j, SensDeplacement s);
+void ajouterSemaphore(Semaphore e, SensDeplacement s);
 fontsize=12</panel_attributes>
     <additional_attributes/>
   </element>
@@ -107,9 +113,9 @@ fontsize=12</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1078</x>
+      <x>1092</x>
       <y>252</y>
-      <w>168</w>
+      <w>154</w>
       <h>35</h>
     </coordinates>
     <panel_attributes>lt=-
@@ -120,13 +126,13 @@ r2=jonctionAvant
 r1=sesRoutes
 
 </panel_attributes>
-    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1393</x>
-      <y>238</y>
+      <x>1428</x>
+      <y>224</y>
       <w>84</w>
       <h>42</h>
     </coordinates>
@@ -163,7 +169,8 @@ fontsize=12
 -sensDeplacement : SensDeplacement
 -identifiant : int
 --
-void prochaineEtape();</panel_attributes>
+void prochaineEtape();
+void setPosition(int position);</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -186,9 +193,9 @@ ARRIERE</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1029</x>
-      <y>308</y>
+      <y>336</y>
       <w>441</w>
-      <h>252</h>
+      <h>224</h>
     </coordinates>
     <panel_attributes>lt=-
 fontsize=12
@@ -197,7 +204,7 @@ r1=saRoute
 m2=*
 r2=sesVoitures
 </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;180.0;540.0;180.0;540.0;340.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;540.0;140.0;540.0;300.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -385,7 +392,7 @@ fontsize=12</panel_attributes>
     <panel_attributes>/Capteur/
 --
 --
-void notify();
+void notifie();
 void setElemRegulation(ElemRegulationCapteur e);
 fontsize=12</panel_attributes>
     <additional_attributes/>
@@ -421,9 +428,9 @@ fontsize=12
     <id>Relation</id>
     <coordinates>
       <x>980</x>
-      <y>308</y>
+      <y>336</y>
       <w>70</w>
-      <h>308</h>
+      <h>280</h>
     </coordinates>
     <panel_attributes>lt=-
 fontsize=12
@@ -433,7 +440,7 @@ r1=sesCapteurs
 r2=saRoute
 
 </panel_attributes>
-    <additional_attributes>10.0;420.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;380.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -457,8 +464,7 @@ r2=saRoute
     <panel_attributes>CapteurVitesse
 --
 --
-void notify();
-bool getVitesse();
+int getVitesse();
 fontsize=12</panel_attributes>
     <additional_attributes/>
   </element>
@@ -485,7 +491,6 @@ fontsize=12</panel_attributes>
     <panel_attributes>CapteurPresence
 --
 --
-void notify();
 bool getPresence();
 fontsize=12</panel_attributes>
     <additional_attributes/>
@@ -580,7 +585,7 @@ VERT</panel_attributes>
     <panel_attributes>ElemRegulationCapteur
 --
 --
-void beNotified();
+void notifie();
 fontsize=12</panel_attributes>
     <additional_attributes/>
   </element>
@@ -914,9 +919,9 @@ void setSensDeplacement();</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1078</x>
+      <x>1092</x>
       <y>280</y>
-      <w>168</w>
+      <w>154</w>
       <h>35</h>
     </coordinates>
     <panel_attributes>lt=-
@@ -927,29 +932,30 @@ r2=jonctionArriere
 r1=sesRoutes
 
 </panel_attributes>
-    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
+    <id>UMLClass</id>
     <coordinates>
-      <x>1001</x>
-      <y>308</y>
-      <w>21</w>
-      <h>182</h>
-    </coordinates>
-    <panel_attributes>lt=-
-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;240.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1001</x>
-      <y>469</y>
-      <w>168</w>
+      <x>434</x>
+      <y>21</y>
+      <w>133</w>
       <h>21</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>220.0;10.0;10.0;10.0</additional_attributes>
+    <panel_attributes>/Semaphore/
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>294</x>
+      <y>21</y>
+      <w>154</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
   </element>
 </diagram>
