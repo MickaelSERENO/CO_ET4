@@ -64,7 +64,7 @@ public class SegmentRoute
 		}
 		return null;
 	}
-	
+
 	public SegmentRoute getNextSegmentRoute(Voiture v) throws PasBonneRoute
 	{
 		if(v.getPosition() < getPositionDebut()) //voiture en adébut de route = avant
