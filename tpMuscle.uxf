@@ -189,27 +189,28 @@ r2=sesVoitures
     <id>Relation</id>
     <coordinates>
       <x>1211</x>
-      <y>427</y>
+      <y>441</y>
       <w>21</w>
-      <h>42</h>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=..
 
 </panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>1176</x>
       <y>406</y>
-      <w>98</w>
-      <h>28</h>
+      <w>112</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>Position
 fontsize=12
 --
--position : int</panel_attributes>
+-position : int
+-sens : SensDeplacement</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -383,22 +384,23 @@ fontsize=12</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>847</x>
+      <x>826</x>
       <y>441</y>
-      <w>98</w>
-      <h>28</h>
+      <w>119</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>Position
 fontsize=12
 --
--position : int</panel_attributes>
+-position : int
+-sens : SensDeplacement</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>938</x>
-      <y>441</y>
+      <y>448</y>
       <w>63</w>
       <h>35</h>
     </coordinates>

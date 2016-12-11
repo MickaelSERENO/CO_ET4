@@ -8,7 +8,7 @@ public class CapteurVitesse extends Capteur {
 	}
 	
 	//Recupere la vitesse courante de la voiture
-	public int  getVitesse(){
+	public int getVitesse(){
 		if(m_voitureCourante != null)
 			return m_voitureCourante.getVitesseCourante();
 		return 0;

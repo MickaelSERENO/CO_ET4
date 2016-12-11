@@ -5,20 +5,20 @@ import com.polytech.et4.SegmentRoute;
 import com.polytech.et4.Element;
 import com.polytech.et4.SensDeplacement;
 
-public class Voiture extends Element implements Updatable
+public class Voiture extends Element implements Updatable, Obstacle
 {
 	static private int identifiantCourant = 0;
 	static private final int LONGUEUR = 1;
 
-	private final float  m_vitesseMax;
-	private float	     m_vitesseCourante;
-	private int          m_identifiant;
+	private final int  m_vitesseMax;
+	private int	       m_vitesseCourante;
+	private int        m_identifiant;
 
 	public Voiture(int vitesseMax, SegmentRoute route, int position, int sens)
 	{
 		super(position, sens, route);
-		m_vitesseMax      = (float)vitesseMax;
-		m_vitesseCourante = (float)vitesseMax;
+		m_vitesseMax      = (int)vitesseMax;
+		m_vitesseCourante = (int)vitesseMax;
 		m_identifiant     = identifiantCourant;
 
 		identifiantCourant++;
@@ -34,15 +34,15 @@ public class Voiture extends Element implements Updatable
 
     public void prochaineEtape()
     {
-		setPosition(m_position + (m_sens == SensDeplacement.ARRIERRE ? -1 : 1) * (int)m_vitesseCourante);
+		setPosition(m_position + (m_sens == SensDeplacement.ARRIERRE ? -1 : 1) * m_vitesseCourante);
     }
     
-    public float getVitesseCourante()
+    public int getVitesseCourante()
     {
     	return (int)m_vitesseCourante;
     }
 
-    public float getVitesseMax()
+    public int getVitesseMax()
     {
     	return (int)m_vitesseMax;
     }
@@ -118,7 +118,7 @@ public class Voiture extends Element implements Updatable
 
 		//On détermine notre vitesse par rapport à ce qui arrivera après
 		int i=1;
-		float v = m_vitesseMax; //On souhaiterai toujours redémarré
+		int v = m_vitesseMax; //On souhaiterai toujours redémarré
 		while(i <= v)
 		{
 			for(; i <= v; i++)
@@ -142,6 +142,13 @@ public class Voiture extends Element implements Updatable
 				}
 			}
 		}
+	}
+
+	public boolean peutPasser(Voiture v)
+	{
+		if(v.m_sens == m_sens && v.position + (m_sens == SensDeplacement.ARRIERRE ? 1 : -1) == m_position)
+			return false;
+		return true;
 	}
 
 	public String toString()
