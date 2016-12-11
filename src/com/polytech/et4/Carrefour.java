@@ -18,7 +18,7 @@ public class Carrefour extends Jonction {
 		}
 	}
 	
-	public Carrefour makeCarrefour(ArrayList<SegmentRoute> lSegmentRoute, ArrayList<Integer> lsens) throws TableauNonCompatible
+	static public Carrefour makeCarrefour(ArrayList<SegmentRoute> lSegmentRoute, ArrayList<Integer> lsens) throws TableauNonCompatible
 	{
 		if(lsens.size() != lSegmentRoute.size())
 			throw new TableauNonCompatible();
