@@ -146,7 +146,7 @@ public class Voiture extends Element implements Updatable, Obstacle
 
 	public boolean peutPasser(Voiture v)
 	{
-		if(v.m_sens == m_sens && v.m_position == m_position)
+		if(v != this && v.m_sens == m_sens && v.m_position == m_position)
 			return false;
 		return true;
 	}
