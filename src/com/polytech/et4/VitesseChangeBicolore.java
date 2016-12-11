@@ -10,11 +10,11 @@ public class VitesseChangeBicolore extends ElemRegulationCapteur
 	private boolean m_estNotifie       = false;
 	private int     m_timer            = 0;
 	private int     m_vitesseMax       = 0;
-	private FeuTricolore m_feu;
+	private FeuBicolore m_feu;
 
 	/* \brief Constructeur
 	 * \param cv Le capteur de vitesse lié à l'objet*/
-	public VitesseChangeBicolore(CapteurVitesse cv, FeuTricolore feu, int vitesseMax)
+	public VitesseChangeBicolore(CapteurVitesse cv, FeuBicolore feu, int vitesseMax)
 	{
 		super(cv);
 		m_feu = feu;
