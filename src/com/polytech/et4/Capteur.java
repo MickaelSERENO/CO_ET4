@@ -37,6 +37,9 @@ public abstract class Capteur extends Element implements Updatable
 
 	public void notifie(Voiture v)
 	{
+		//Si on avait déjà une voiture, collision
+		if(m_voitureCourante != null)
+			m_segmentRoute.risqueCollision(v);
 		m_voitureCourante = v;
 		if(m_elem != null)
 			m_elem.notifie();

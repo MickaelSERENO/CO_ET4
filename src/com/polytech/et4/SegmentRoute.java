@@ -197,4 +197,9 @@ public class SegmentRoute
 		System.out.println("Fin " + j + " " + identifiant);
 		jonction2 = j;
 	}
+	
+	public void risqueCollision(Voiture v)
+	{
+		System.out.println("Un risque de collision est intervenu, attention ! Voiture : " + v); //On pourrait imaginer autre choses.
+	}
 }
