@@ -18,9 +18,9 @@ public class Carrefour extends Jonction {
 		for(int i=0; i < lSegmentRoute.size(); i++)
 		{
 			if(sens != SensDeplacement.ARRIERRE)
-				lSegmentRoute.get(i).setJonctionDebut(this);
-			else if(sens != SensDeplacement.AVANT)
 				lSegmentRoute.get(i).setJonctionFin(this);
+			else if(sens != SensDeplacement.AVANT)
+				lSegmentRoute.get(i).setJonctionDebut(this);
 		}
 	}
 	
