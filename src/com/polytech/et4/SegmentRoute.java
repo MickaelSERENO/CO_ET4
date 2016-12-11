@@ -165,7 +165,7 @@ public class SegmentRoute
 
 		for(Voiture v2 : listeVoiture)
 		{
-			if(v2.getPosition() == v.getPosition() && v.getSens() == v2.getSens() && v != v2) //Le différent est justifié car les voitures sont toutes différentes de part leur identifiants uniques
+			if(!v2.peutPasser(v)) //Le différent est justifié car les voitures sont toutes différentes de part leur identifiants uniques
 			{
 				notifieVoitureDangereuse(v);
 			}
