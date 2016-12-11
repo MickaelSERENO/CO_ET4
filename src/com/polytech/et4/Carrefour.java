@@ -6,28 +6,34 @@ import java.util.Random;
 public class Carrefour extends Jonction {
 	private ArrayList<SegmentRoute> listeSegmentRoute;
 	
-	private Carrefour(ArrayList<SegmentRoute> lSegmentRoute, ArrayList<Integer> lsens)
+	//Liste des routes, position de la jonction sur la première route
+	private Carrefour(ArrayList<SegmentRoute> lSegmentRoute, int sens)
 	{
 		listeSegmentRoute = lSegmentRoute;
-		for(int i=0; i < lsens.size(); i++)
+		if(sens == SensDeplacement.ARRIERRE)
+			lSegmentRoute.get(0).setJonctionDebut(this);
+		else
+			lSegmentRoute.get(0).setJonctionFin(this);
+
+		for(int i=0; i < lSegmentRoute.size(); i++)
 		{
-			if(lsens.get(i).intValue()  != SensDeplacement.ARRIERRE)
+			if(sens != SensDeplacement.ARRIERRE)
 				lSegmentRoute.get(i).setJonctionDebut(this);
-			else if(lsens.get(i).intValue() != SensDeplacement.AVANT)
+			else if(sens != SensDeplacement.AVANT)
 				lSegmentRoute.get(i).setJonctionFin(this);
 		}
 	}
 	
-	static public Carrefour makeCarrefour(ArrayList<SegmentRoute> lSegmentRoute, ArrayList<Integer> lsens) throws TableauNonCompatible
+	//Liste des routes, position de la jonction sur la première route
+	static public Carrefour makeCarrefour(ArrayList<SegmentRoute> lSegmentRoute, int sens) throws TableauNonCompatible
 	{
-		if(lsens.size() != lSegmentRoute.size())
+		if(lSegmentRoute.size() < 2)
 			throw new TableauNonCompatible();
 		
-		for(Integer i : lsens)
-			if(i.intValue() != SensDeplacement.ARRIERRE || i.intValue() != SensDeplacement.AVANT)
-				throw new TableauNonCompatible();
+		if(sens.intValue() != SensDeplacement.ARRIERRE || sens.intValue() != SensDeplacement.AVANT)
+			throw new TableauNonCompatible();
 		
-		return new Carrefour(lSegmentRoute, lsens);
+		return new Carrefour(lSegmentRoute, sens);
 	}
 
 	public SegmentRoute getNextSegmentRoute(SegmentRoute origine)throws OrigineJonctionException{
