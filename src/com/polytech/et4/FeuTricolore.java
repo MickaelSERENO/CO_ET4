@@ -20,7 +20,7 @@ public class FeuTricolore extends Semaphore {
 	@Override
 	public float vitesseApproche(Voiture v) {
 		if(couleurFeu == Tricolore.ROUGE) 
-			return Math.min(Math.abs((v.getPosition() - this.getPosition()+ (m_sens == SensDeplacement.ARRIERRE ? 1 : -1))/v.getVitesseMax()), 1);
+			return Math.min(Math.abs((v.getPosition() - this.getPosition()+ (m_sens == SensDeplacement.ARRIERRE ? 1 : -1))/(float)v.getVitesseMax()), 1.0f);
 		else if(couleurFeu == Tricolore.ORANGE) 
 			return 1.0f/2.0f;
 		return 1;

@@ -128,7 +128,7 @@ public class Voiture extends Element implements Updatable, Obstacle
 				{
 					m_vitesseCourante = (int)(m_vitesseMax * sema.vitesseApproche(this));
 					v = m_vitesseCourante;
-					System.out.println(""+sema.vitesseApproche(this));
+					System.out.println(""+sema.vitesseApproche(this) + " " + sema);
 					i++;
 					break;
 				}

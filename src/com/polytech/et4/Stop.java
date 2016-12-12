@@ -19,9 +19,9 @@ public class Stop extends Semaphore {
 			System.out.println("Teste vitesse approche. return : " + Math.min(Math.abs((v.getPosition() - this.getPosition() + (m_sens == SensDeplacement.ARRIERRE ? 1 : -1))/v.getVitesseMax()), 1));
 			System.out.println("self position : " + m_position);
 			if(m_sens == SensDeplacement.ARRIERRE)
-				return Math.min((-this.getPosition() + v.getPosition() + 1)/v.getVitesseMax(), 1.0f);
+				return Math.min((-this.getPosition() + v.getPosition() + 1)/(float)v.getVitesseMax(), 1.0f);
 			else
-				return Math.min((+this.getPosition() - v.getPosition() -1)/v.getVitesseMax(), 1.0f);
+				return Math.min((+this.getPosition() - v.getPosition() -1)/(float)v.getVitesseMax(), 1.0f);
 
 		}
 		else
